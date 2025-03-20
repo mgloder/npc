@@ -11,8 +11,8 @@ This project uses several tools to maintain code quality:
 
 1. Clone the repository
    ```bash
-   git clone https://github.com/yourusername/your-repo.git
-   cd your-repo
+   git clone https://github.com/mgloder/npc.git
+   cd npc
    ```
 
 2. Create a virtual environment
@@ -50,8 +50,12 @@ Pre-commit will now run automatically on every commit to check your changes.
 
 ## License
 
-[Choose an appropriate license]
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
 ## Contributing
 
 [Instructions for contributors]
+
+## Repository
+
+This project is hosted on GitHub at: https://github.com/mgloder/npc
