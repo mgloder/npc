@@ -1,8 +1,7 @@
-from typing import Dict, List, Optional
 import uuid
+from typing import Dict, List, Optional
 
 from app.models.npc import NPC, NPCCreate, NPCUpdate
-
 
 # In-memory database for demonstration
 npc_db: Dict[str, NPC] = {}
@@ -30,13 +29,13 @@ async def update_npc(npc_id: str, npc_data: NPCUpdate) -> Optional[NPC]:
     """Update an existing NPC"""
     if npc_id not in npc_db:
         return None
-    
+
     stored_npc = npc_db[npc_id]
     update_data = npc_data.dict(exclude_unset=True)
-    
+
     for field, value in update_data.items():
         setattr(stored_npc, field, value)
-    
+
     npc_db[npc_id] = stored_npc
     return stored_npc
 
@@ -45,6 +44,6 @@ async def delete_npc(npc_id: str) -> bool:
     """Delete an NPC"""
     if npc_id not in npc_db:
         return False
-    
+
     del npc_db[npc_id]
-    return True 
+    return True

@@ -26,4 +26,4 @@ npc-game-api/
 ├── .pre-commit-config.yaml
 ├── pyproject.toml
 ├── README.md
-└── requirements.txt 
+└── requirements.txt

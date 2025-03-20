@@ -1,5 +1,6 @@
 from enum import Enum
 from typing import List, Optional
+
 from pydantic import BaseModel, Field
 
 
@@ -12,10 +13,18 @@ class NPCState(str, Enum):
 
 
 class NPCPersonality(BaseModel):
-    friendliness: float = Field(..., ge=0.0, le=1.0, description="How friendly the NPC is (0-1)")
-    aggressiveness: float = Field(..., ge=0.0, le=1.0, description="How aggressive the NPC is (0-1)")
-    helpfulness: float = Field(..., ge=0.0, le=1.0, description="How helpful the NPC is (0-1)")
-    curiosity: float = Field(..., ge=0.0, le=1.0, description="How curious the NPC is (0-1)")
+    friendliness: float = Field(
+        ..., ge=0.0, le=1.0, description="How friendly the NPC is (0-1)"
+    )
+    aggressiveness: float = Field(
+        ..., ge=0.0, le=1.0, description="How aggressive the NPC is (0-1)"
+    )
+    helpfulness: float = Field(
+        ..., ge=0.0, le=1.0, description="How helpful the NPC is (0-1)"
+    )
+    curiosity: float = Field(
+        ..., ge=0.0, le=1.0, description="How curious the NPC is (0-1)"
+    )
 
 
 class NPCStats(BaseModel):
@@ -40,7 +49,7 @@ class NPCCreate(NPCBase):
 
 class NPC(NPCBase):
     id: str
-    
+
     class Config:
         orm_mode = True
 
@@ -51,4 +60,4 @@ class NPCUpdate(BaseModel):
     personality: Optional[NPCPersonality] = None
     stats: Optional[NPCStats] = None
     state: Optional[NPCState] = None
-    dialogue_options: Optional[List[str]] = None 
+    dialogue_options: Optional[List[str]] = None

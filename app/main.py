@@ -25,5 +25,5 @@ app.include_router(npc.router, prefix=settings.API_V1_STR)
 
 
 @app.get("/")
-async def root():
-    return {"message": "Welcome to the NPC Game API. See /docs for API documentation."} 
+def read_root() -> dict:
+    return {"message": "Welcome to the NPC Game API. See /docs for API documentation."}
