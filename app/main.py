@@ -1,7 +1,9 @@
+from typing import Dict
+
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
-from app.api.endpoints import npc
+from app.api.api import api_router
 from app.core.config import settings
 
 app = FastAPI(
@@ -14,16 +16,16 @@ app = FastAPI(
 # Set up CORS
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=settings.CORS_ORIGINS,
+    allow_origins=[str(origin) for origin in settings.CORS_ORIGINS],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
 
-# Include routers
-app.include_router(npc.router, prefix=settings.API_V1_STR)
+# Include the API router
+app.include_router(api_router, prefix=settings.API_V1_STR)
 
 
 @app.get("/")
-def read_root() -> dict:
+def root() -> Dict[str, str]:
     return {"message": "Welcome to the NPC Game API. See /docs for API documentation."}

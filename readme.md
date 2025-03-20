@@ -27,6 +27,28 @@ This project uses several tools to maintain code quality:
    pip install -e .  # Install the package in development mode
    ```
 
+### Running Tests
+
+To run all tests:
+```bash
+pytest
+```
+
+To run specific tests:
+```bash
+pytest tests/test_hypo_gen.py  # Run only HypoGeneratorAgent tests
+```
+
+To run tests with verbose output:
+```bash
+pytest -v
+```
+
+To run tests with coverage report:
+```bash
+pytest --cov=app
+```
+
 ### Setup Pre-commit Hooks
 
 This project uses pre-commit hooks to ensure code quality before commits.
