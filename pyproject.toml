@@ -18,3 +18,7 @@ disallow_incomplete_defs = true
 testpaths = ["tests"]
 python_files = "test_*.py"
 python_functions = "test_*"
+
+[tool.ruff]
+# Same as Black.
+line-length = 120
