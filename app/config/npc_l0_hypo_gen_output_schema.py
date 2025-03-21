@@ -13,7 +13,11 @@ class CounterArguments(BaseModel):
     argument: str
 
 
-class HierarchicalHypo(BaseModel):
-    hypothesis: str
+class Explanations(BaseModel):
     supporting_factors: List[SupportingFactor]
     counter_arguments: List[CounterArguments]
+
+
+class HierarchicalHypo(BaseModel):
+    hypothesis: str
+    explanations: Explanations
