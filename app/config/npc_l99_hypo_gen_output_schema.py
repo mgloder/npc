@@ -1,6 +1,9 @@
-from pydantic import BaseModel
+from app.config.base import BaseExplanations, BaseHierarchicalHypo
 
 
-class HierarchicalHypo(BaseModel):
-    hypothesis: str
-    explanation: str
+class Explanations(BaseExplanations):
+    ...
+
+
+class HierarchicalHypo(BaseHierarchicalHypo):
+    ...
