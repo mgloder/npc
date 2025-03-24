@@ -1,7 +1,7 @@
 import asyncio
 import uuid
 from typing import List, Dict, Any
-from laowu_npc001 import laowu_npc, npc001, Runner, NPCContext
+from laowu_npc001 import laowu_npc, npc001, Runner, NPCContext, Target
 from agents import Agent, MessageOutputItem, ToolCallItem, ToolCallOutputItem, ItemHelpers
 
 
@@ -31,6 +31,15 @@ async def chat_with_laowu():
 
     def get_new_chathistory(input: str):
         _1, _2 = input.split('[system: change target]')
+        # reset chat history update the npc001,
+        if str(_2).strip() not in input_context:
+            npc001.target = Target(_2, [])
+            if str(_2).strip() == '张三':
+                npc001.target.appearance = ["军大衣", "军帽"]
+            elif str(_2).strip() == '李四':
+                npc001.target.appearance = ["军大衣", "军帽", "警棍"]
+            else:
+                npc001.target.appearance = ["衬衫", "工装裤"]
         return input_context.get(str(_2).strip(), ChatHistory())
 
     while True:
@@ -58,19 +67,16 @@ async def chat_with_laowu():
         for new_item in result.new_items:
             if isinstance(new_item, MessageOutputItem):
                 print(f"\n{current_agent.name}: {ItemHelpers.text_message_output(new_item)}")
-                chat_history.add_message("assistant", ItemHelpers.text_message_output(new_item))
             elif isinstance(new_item, ToolCallItem):
                 print(f"\n老五: [正在处理您的请求...]")
             elif isinstance(new_item, ToolCallOutputItem):
                 print(f"\n老五: [处理结果: {new_item.output}]")
 
-        # Update conversation state
-        chat_history = ChatHistory()
         for item in result.to_input_list():
             if item.get('type', 'model') == 'function_call':
                 continue
             elif item.get('type', 'model') == 'function_call_output':
-                chat_history.add_message('assistant', "想法：" + item["output"])
+                chat_history.add_message('assistant', f"({current_agent.name}内心的想法：" + f"{item['output']})")
             else:
                 chat_history.add_message(item["role"], item["content"])
         current_agent = result.last_agent
@@ -82,3 +88,13 @@ def main():
 
 if __name__ == "__main__":
     main()
+
+# [system: change target] 张三
+# [game event type: stranger; threaten: false]
+# 你知道我是谁吗？
+# 你来描述一下我穿的衣服
+# [system: change target] 李四
+# [game event type: stranger; threaten: true]
+# [system: change target] 王五
+# 我叫什么名字？
+# 我现在穿的什么衣服？
