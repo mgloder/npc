@@ -96,13 +96,13 @@ async def handle_game_event(game_event: Event) -> str:
         return """default game event"""
 
 
-laowu_npc = Agent[NPCContext](name="NPC001", instructions=hypo_instruct, tools=[handle_game_event])
+laowu_npc = Agent[NPCContext](name="老五", instructions=hypo_instruct, tools=[handle_game_event])
 
 
 async def main():
     result = await Runner.run(
         laowu_npc,
-        "game event type: stranger; threaten: false",
+        "game event type: stranger; threaten: true",
         context=npc001,
     )
     print(result.final_output)
