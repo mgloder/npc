@@ -98,3 +98,7 @@ if __name__ == "__main__":
 # [system: change target] 王五
 # 我叫什么名字？
 # 我现在穿的什么衣服？
+
+# TODO: chat with multiple people
+# TODO: chat history length
+# TODO: lao wu workflow

@@ -67,13 +67,6 @@ class Event(TypedDict):
 laowu = {}
 
 
-def fetch_appearance(toggle: bool) -> List[str]:
-    print("[debug] fetch database, the target appearance")
-    if toggle:
-        return ["军大衣", "军帽", "警棍"]
-    return ["军大衣", "军帽"]
-
-
 def check_npc_threat_level(item: List[str]) -> int:
     "low: 0, mid: 1, high: 2"
     if "警棍" in item:
@@ -104,7 +97,9 @@ async def handle_game_event(ctx: RunContextWrapper[NPCContext], game_event: Even
         return """default game event"""
 
 
-laowu_npc = Agent[NPCContext](name="老五", instructions=hypo_instruct, tools=[handle_game_event])
+laowu_npc = Agent[NPCContext](name="老五",
+                              instructions=hypo_instruct,
+                              tools=[handle_game_event])
 
 
 async def main():
